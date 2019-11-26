@@ -29,3 +29,11 @@ presubmits:
       containers:
       - image: alpine
         command: ["/bin/printenv"]
+  - name: test-javaapp-presubmit
+    decorate: true
+    always_run: true
+    spec:
+      containers:
+      - image: openjdk:11-jdk-slim
+        command: ["./gradlew"]
+        args: ["--no-daemon", "test"]
