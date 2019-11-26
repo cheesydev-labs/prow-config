@@ -12,7 +12,7 @@ To install Prow in a Kubernetes cluster, run `tackle`. You will be offered the
 option to choose the `starter.yaml` from test-infra's upstream in github.
 
 ```
-# cd test-infra
+# from your local clone of kubernetes/test-infra's root dir
 bazel run //prow/cmd/tackle # select cluster,
                             # choose starter.yaml,
                             # github api token from bot account,
