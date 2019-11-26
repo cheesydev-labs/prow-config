@@ -1,5 +1,11 @@
 # my-prow-config
 
+This is the config for my own Prow CI installation. The job configs are set by
+github's org/repo in the following files:
+
+* `plugins.yaml` enables prow plugins
+* `config.yaml` configs which, when and how to run jobs
+
 ### Install Prow
 
 To install Prow in a Kubernetes cluster, run `tackle`. You will be offered the
