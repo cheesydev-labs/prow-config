@@ -1,3 +1,4 @@
 plugins:
   cheesydev-labs/java-app:
   - size
+  - trigger

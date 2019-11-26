@@ -9,3 +9,22 @@ plank:
       bucket: prow-artifacts-tekton-257312 # the bucket we just made
       path_strategy: explicit
     gcs_credentials_secret: gcs-credentials # the secret we just made
+
+postsubmits:
+  cheesydev-labs/java-app:
+  - name: test-postsubmit
+    decorate: true
+    spec:
+      containers:
+      - image: alpine
+        command: ["/bin/printenv"]
+presubmits:
+  cheesydev-labs/java-app:
+  - name: test-presubmit
+    decorate: true
+    always_run: true
+    skip_report: true
+    spec:
+      containers:
+      - image: alpine
+        command: ["/bin/printenv"]

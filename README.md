@@ -29,7 +29,7 @@ bazel run //prow/cmd/checkconfig -- \
 Makefile needs to find your GKE cluster:
 ```
 export CLUSTER=prow               #
-export PROJECT=my-project-123456  # replace with your values
+export PROJECT=tekton-257312      # replace with your values
 export ZONE=europe-west1-b        #
 ```
 
@@ -80,4 +80,38 @@ plank:
       bucket: prow-artifacts # the bucket we just made
       path_strategy: explicit
     gcs_credentials_secret: gcs-credentials # the secret we just made
+
+postsubmits:
+  ...
+
+presubmits:
+  ...
 ```
+
+Running the optional check config was helpful at this time. It pointed me that
+the repo with the postsubmits and presubmit jobs declared above, in
+config.yaml, does not have the trigger plugin enabled.
+```
+# from test-infra root dir
+bazel run //prow/cmd/checkconfig -- \
+  --plugin-config=/path/to/my/plugins.yaml \
+  --config-path=/path/to/my/config.yaml
+#
+# output:
+# { ... "level":"warning","msg":"The `plank.allow_cancellations` setting is deprecated. It will be removed and set to always true in March 2020"}
+# { ... "level":"warning","msg":"default_decoration_config will be deprecated on April 2020, and it will be replaced with default_decoration_configs['*']."}
+# { ... "level":"warning","msg":"the following repos have jobs configured but do not have the trigger plugin enabled: repo: cheesy-labs/java-app"}
+```
+
+After adding `trigger` to plugins.yaml and running bazel checkconfig again,
+I have an ok in the final outputline:
+```
+{"level":"info","msg":"checkconfig passes without any error!"}
+```
+
+Apply the latest changes from plugins.yaml and config.yaml to the cluster:
+```
+make update-plugins
+make update-config
+```
+
