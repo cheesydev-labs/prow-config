@@ -14,6 +14,7 @@ postsubmits:
   cheesydev-labs/java-app:
   - name: test-postsubmit
     decorate: true
+    always_run: true
     spec:
       containers:
       - image: alpine
@@ -23,7 +24,7 @@ presubmits:
   - name: test-presubmit
     decorate: true
     always_run: true
-    skip_report: true
+    skip_report: false
     spec:
       containers:
       - image: alpine

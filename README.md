@@ -115,3 +115,7 @@ make update-plugins
 make update-config
 ```
 
+Now, the presubmit job will run when a PR is open, and a status message will be
+posted to the PR. The postsubmit will run after a change to the repo, a push or
+a merge.
+
